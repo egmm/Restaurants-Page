@@ -1,0 +1,56 @@
+{% extends 'list/base.html' %}
+{% block title %}Restaurant Menu{% endblock %}
+{% load staticfiles %}
+
+{% block body %}
+  <div class="jumbotron" id="restaurant_image"><h1 class="display-3"> {{ restaurant }} </h1></div>
+
+<!-- Menu list -->
+  <div class="container-fluid" id="menu_list">
+    <div class="row">
+      <!-- Food type filter -->
+      <div class="col-md-2">
+        <ul class="list-group">
+          <li class="list-group-item plate-type">ENTREE</li>
+          <li class="list-group-item plate-type">APPTIZER</li>
+          <li class="list-group-item plate-type">DESERT</li>
+        </ul>
+      </div>
+
+      <!-- Dishes -->
+      <div class="col-md-6">
+        <div class="row">
+          {% for menu in restaurant.menuitem_set.all %}
+            <div class="col-sm-6">
+              <div class="card h-100" id="dish">
+                <div class="card-body p-2">
+                  <div class="d-flex justify-content-between">
+                    <h6 class="card-title">{{ menu.name }}</h6>
+                    <span>{{ menu.price}}</span>
+                  </div>
+                  <p class="card-text plate-description">{{ menu.description }}</p>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Comment section -->
+      <div class="col-md-4" id="comments">
+        <div class="container">
+          <div class="list-group">
+            {% for comment in comments %}
+            <div class="list-group-item">
+              <div class="d-flex justify-content-between">
+                <p>{{ comment.comment }}</p>
+                <span>{{ comment.rate}}</span>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
